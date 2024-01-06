@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HomePageComponent } from './home-page/home-page.component';
+import { SubmitTransactionPageComponent } from './submit-transaction-page/submit-transaction-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EdbHeaderComponent,
-    HomePageComponent
+    HomePageComponent,
+    SubmitTransactionPageComponent
   ],
   imports: [
     BrowserModule,
