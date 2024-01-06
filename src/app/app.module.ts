@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { HomePageComponent } from './home-page/home-page.component';
 import { BenefPageComponent } from './benef-page/benef-page.component';
 import { SubmitTransactionPageComponent } from './submit-transaction-page/submit-transaction-page.component';
+import { TransactionPageComponent } from './transactions-page/transaction-page.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SubmitTransactionPageComponent } from './submit-transaction-page/submit
     EdbHeaderComponent,
     HomePageComponent,
     BenefPageComponent,
-    SubmitTransactionPageComponent
+    SubmitTransactionPageComponent,
+    TransactionPageComponent
   ],
   imports: [
     BrowserModule,

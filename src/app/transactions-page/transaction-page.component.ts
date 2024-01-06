@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import benefData from "../beneficiaires"
 
 @Component({
-  selector: 'app-benef-page',
-  templateUrl: './benef-page.component.html',
-  styleUrls: ['./benef-page.component.css']
+  selector: 'app-transaction-page',
+  templateUrl: './transaction-page.component.html',
+  styleUrls: ['./transaction-page.component.css']
 })
-export class BenefPageComponent {
+export class TransactionPageComponent {
 
   beneficiaires:any[] = benefData.map((b)=>{b.selected = false;return b})
   renderedBenefs = this.beneficiaires
