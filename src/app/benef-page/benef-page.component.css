@@ -241,8 +241,6 @@
   }
   .client-form{
     grid-template-columns: auto;
-    border-bottom: solid var(--dark-grey) 2px;
-    height: 60vh;
     overflow-y: scroll;
     overflow-x: visible;
   }

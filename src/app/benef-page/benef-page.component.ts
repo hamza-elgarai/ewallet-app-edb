@@ -41,38 +41,22 @@ export class BenefPageComponent {
   }
 
   labels:any = {
-    title:"Nom",
-    prenom:"Prénom",
-    typePieceIdentite:"Type de pièce d'identité",
-    paysEmissionPieceIdentite:"Pays d'émission de pièce d'identité",
-    numeroPieceIdentite:"Numéro de pièce d'identité",
-    expirationPieceIdentite:"Date d'expiration de la pièce d'identité",
-    dateNaissance:"Date de naissance",
-    profession:"Profession",
-    paysNationalite:"Pays de nationalité",
-    paysAdresse:"Addresse Pays",
-    adresseLegale:"Adresse legale",
-    ville:"Ville",
-    gsm:"Tél",
-    email:"E-mail"
+      "nom": "Nom",
+      "prenom": "Prénom",
+      "email": "E-mail",
+      "phone": "Télephone",
+    }
+  
+  beneficiaire:any = {
+    "id": 5,
+    "nom": "Benzema",
+    "prenom": "Karim",
+    "email": "kbenz@yahoo.fr",
+    "phone": "0615151515",
+    "isBlockListed": false,
+    "walletCode": "hxxx23",
+    "walletClient": 2
   }
-  client:any = {
-    id:null,
-    title:"",
-    prenom:"",
-    typePieceIdentite:"",
-    paysEmissionPieceIdentite:"",
-    numeroPieceIdentite:"",
-    expirationPieceIdentite: "",
-    dateNaissance: "",
-    profession:"",
-    paysNationalite:"",
-    paysAdresse:"",
-    adresseLegale:"",
-    ville:"",
-    gsm:"",
-    email:""
- }
 getObjectKeys(obj: any): string[] {
   return Object.keys(obj);
 }
