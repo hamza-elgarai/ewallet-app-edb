@@ -133,7 +133,7 @@
 @media screen and (max-width: 750px) {
   .header {
     flex-direction: column;
-    height: 4rem;
+    height: 5.3rem;
     overflow: hidden;
     transition: height 0.3s ease-in-out;
   }
@@ -158,6 +158,6 @@
     display: flex;
   }
   .header-open {
-    height: 22rem;
+    height: 24rem;
   }
 }

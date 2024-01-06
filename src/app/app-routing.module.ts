@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './home-page/home-page.component';
 import { BenefPageComponent } from './benef-page/benef-page.component';
+import { SubmitTransactionPageComponent } from './submit-transaction-page/submit-transaction-page.component';
 
 const routes: Routes = [
   {path:"",component:HomePageComponent},
   {path:"beneficiaires",component:BenefPageComponent},
-  {path:"add-transaction",component:BenefPageComponent},
+  {path:"add-transaction",component:SubmitTransactionPageComponent},
 ]
 
 @NgModule({
