@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import benefData from "../beneficiaires"
+import transactionData from './transactions';
+import TransactionResponse from '../interface/transaction-response.interface'
 
 @Component({
   selector: 'app-transaction-page',
@@ -8,57 +9,43 @@ import benefData from "../beneficiaires"
 })
 export class TransactionPageComponent {
 
-  beneficiaires:any[] = benefData.map((b)=>{b.selected = false;return b})
-  renderedBenefs = this.beneficiaires
+  transactions:any[] = transactionData.map((t:any)=>{let t1:any = {...t};t1.selected = false;return t1})
+  renderedTransactions = this.transactions
   searchTerm=""
   
-  selectedBenefs:any[] = []
-  isSelectAllChecked = false;
   handleSearch(){
-    this.beneficiaires = this.beneficiaires.map(c=>{c.selected=false;return c})
-    this.renderedBenefs = this.beneficiaires.filter((c)=>{
+    this.transactions = this.transactions
+    this.renderedTransactions = this.transactions.filter((c)=>{
       let valuesString = JSON.stringify(Object.values(c))
       return (valuesString.toLowerCase().includes(this.searchTerm.toLowerCase()))
     })
   }
-  handleClickOnRadio(event:Event){
-    event.stopPropagation()
-  }
-  selectAll(event:Event){
-    if(this.isSelectAllChecked){
-      this.beneficiaires = this.beneficiaires.map(c => {c.selected = false;return c})
-    }
-    else{
-      this.beneficiaires = this.beneficiaires.map(c => {c.selected = true;return c})
-    }
-    this.isSelectAllChecked = !this.isSelectAllChecked
 
-  }
-  handleSelectRow(){
-    console.log((this.beneficiaires.find(c=>!c.selected))?false:true)
-    this.isSelectAllChecked= (this.beneficiaires.find(c=>!c.selected))?false:true
-    
-  }
-
-  labels:any = {
+  issuerLabels:any = {
       "nom": "Nom",
       "prenom": "Prénom",
       "email": "E-mail",
       "phone": "Télephone",
-    }
-  
-  beneficiaire:any = {
-    "nom": "",
-    "prenom": "",
-    "email": "",
-    "phone": "",
-    "isBlockListed": false,
   }
+  benefLabels:any = {
+      "nom": "Nom",
+      "prenom": "Prénom",
+      "email": "E-mail",
+      "phone": "Télephone",
+  }
+  transactionLabels:any = {
+      "paymentType": "Type de paiement",
+      "issueDate": "Date de paiement",
+      "amount": "Montant",
+      "fraisTransfert": "Frais de transfert",
+  }
+  selectedTransaction:any = {}
+
 getObjectKeys(obj: any): string[] {
   return Object.keys(obj);
 }
 get isTableEmpty(){
-  return !(this.renderedBenefs && this.renderedBenefs.length >0)
+  return !(this.renderedTransactions && this.renderedTransactions.length >0)
 }
 
 modalClass="modal-bg"
@@ -72,20 +59,14 @@ stopPropagation(event:Event){
   event.stopPropagation()
 }
 
-editBenef:any = {
-  "nom": "",
-  "prenom": "",
-  "email": "",
-  "phone": "",
-  "isBlockListed": false,
-}
 editModalClass = "modal-bg"
 openEditModal(id:any){
   console.log("openEditModal : "+id);
-  this.editBenef = benefData.find(b=>b.id===id)
+  this.selectedTransaction = transactionData.find((t)=>t.transactionId===id)
   this.editModalClass = "modal-bg modal-opened"
 }
 closeEditModal(){
+  this.selectedTransaction = {}
   this.editModalClass = "modal-bg"
 }
 }
