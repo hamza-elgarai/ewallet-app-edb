@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HomePageComponent } from './home-page/home-page.component';
+import { BenefPageComponent } from './benef-page/benef-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EdbHeaderComponent,
-    HomePageComponent
+    HomePageComponent,
+    BenefPageComponent
   ],
   imports: [
     BrowserModule,

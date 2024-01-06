@@ -152,3 +152,9 @@ body {
 a {
   text-decoration: none;
 }
+
+
+
+input:focus-visible {
+    outline: solid var(--acc-light) 2px;
+}

@@ -17,7 +17,7 @@
 }
 .header-content{
     display: flex;
-    gap: 2.3rem;
+    gap: 1.2rem;
     align-items: center;
 }
 .edb-logo{
@@ -159,6 +159,6 @@
         display: flex;
     }
     .header-open{
-        height: 17rem;
+        height: 18rem;
     }
 }
