@@ -7,6 +7,7 @@ import { BenefPageComponent } from './benef-page/benef-page.component';
 const routes: Routes = [
   {path:"",component:HomePageComponent},
   {path:"beneficiaires",component:BenefPageComponent},
+  {path:"add-transaction",component:BenefPageComponent},
 ]
 
 @NgModule({

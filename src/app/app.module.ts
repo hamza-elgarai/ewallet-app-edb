@@ -8,13 +8,15 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HomePageComponent } from './home-page/home-page.component';
 import { BenefPageComponent } from './benef-page/benef-page.component';
+import { SubmitTransactionPageComponent } from './submit-transaction-page/submit-transaction-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EdbHeaderComponent,
     HomePageComponent,
-    BenefPageComponent
+    BenefPageComponent,
+    SubmitTransactionPageComponent
   ],
   imports: [
     BrowserModule,
