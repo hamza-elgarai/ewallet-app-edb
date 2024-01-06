@@ -48,14 +48,11 @@ export class BenefPageComponent {
     }
   
   beneficiaire:any = {
-    "id": 5,
-    "nom": "Benzema",
-    "prenom": "Karim",
-    "email": "kbenz@yahoo.fr",
-    "phone": "0615151515",
+    "nom": "",
+    "prenom": "",
+    "email": "",
+    "phone": "",
     "isBlockListed": false,
-    "walletCode": "hxxx23",
-    "walletClient": 2
   }
 getObjectKeys(obj: any): string[] {
   return Object.keys(obj);
@@ -75,4 +72,20 @@ stopPropagation(event:Event){
   event.stopPropagation()
 }
 
+editBenef:any = {
+  "nom": "",
+  "prenom": "",
+  "email": "",
+  "phone": "",
+  "isBlockListed": false,
+}
+editModalClass = "modal-bg"
+openEditModal(id:any){
+  console.log("openEditModal : "+id);
+  this.editBenef = benefData.find(b=>b.id===id)
+  this.editModalClass = "modal-bg modal-opened"
+}
+closeEditModal(){
+  this.editModalClass = "modal-bg"
+}
 }

@@ -22,7 +22,7 @@
                     <th>E-mail</th>
                     <th>Téléphone</th>
                 </tr>
-                <tr class="table-row" [routerLink]="['/client', benef.id]" *ngFor="let benef of renderedBenefs">
+                <tr class="table-row" (click)="openEditModal(benef.id)" *ngFor="let benef of renderedBenefs">
                     <td (click)="handleClickOnRadio($event)">
                         <label class="checkbox-container">
                             <input checked="checked" type="checkbox" (input)="handleSelectRow()" [(ngModel)]="benef.selected">
@@ -43,7 +43,7 @@
     <!--Modal for creating client-->
     <div class="{{modalClass}}" (click)="closeModal($event)">
         <div class="modal-container" (click)="stopPropagation($event)">
-            <h1 class="subtitle">Ajouter un client :</h1>
+            <h1 class="subtitle">Ajouter un bénéficiaire :</h1>
             <div class="grid-container">
                 <div class="client-form">
                     <div class="client-field" *ngFor="let key of getObjectKeys(labels)">
@@ -61,5 +61,28 @@
                     <button class="add-btn save-btn">Valider</button>
         </div>
     </div>
+    </div>
+    <div class="{{editModalClass}}" (click)="closeEditModal()">
+        <div class="modal-container" (click)="stopPropagation($event)">
+            <h1 class="subtitle">Modifier le bénéficiaire :</h1>
+            <div class="grid-container">
+                <div class="client-form">
+                    <div class="client-field" *ngFor="let key of getObjectKeys(labels)">
+                        <label class="field-label" for="{{ key }}">{{ labels[key] }}</label>
+                    
+                        <ng-container [ngSwitch]="key">
+                          <input class="field-input"
+                            type="text"
+                            id="{{ key }}"
+                            [(ngModel)]="editBenef[key]"
+                          />
+                        </ng-container>
+                      </div>
+                    </div>
+                    <button class="add-btn save-btn">Valider</button>
+        </div>
+    </div>  
+    <!--modal to edit-->
+    
 
 </div>
