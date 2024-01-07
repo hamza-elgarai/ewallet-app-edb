@@ -14,7 +14,12 @@ export class ApiServiceService {
       `${this.baseUrl}/USER-SERVICE/api/client/beneficiaires/${id}`
     );
   }
-
+  getTransactions(donorId:any):Observable<any>{
+    return this.http.get(
+      `${this.baseUrl}/TRANSFER-SERVICE/api/v1/transaction/${donorId}`
+    );
+  }
+  
   createBeneficiary(newBenificiary: any, clientId: number): Observable<any> {
     return this.http.post(
       `${this.baseUrl}/USER-SERVICE/api/client/beneficiaire/${clientId}`,
@@ -46,6 +51,7 @@ export class ApiServiceService {
       `${this.baseUrl}/TRANSFER-SERVICE/api/v1/transaction/agent/submitTransaction`,
       data
     );
+ 
   }
 
   getBenificiariesByClientId(clientId: number): Observable<any> {

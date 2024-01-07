@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import transactionData from './transactions';
 import TransactionResponse from '../interface/transaction-response.interface'
+import { ApiServiceService } from '../_services/api-service.service';
+
 
 @Component({
   selector: 'app-transaction-page',
@@ -9,7 +11,17 @@ import TransactionResponse from '../interface/transaction-response.interface'
 })
 export class TransactionPageComponent {
 
-  transactions:any[] = transactionData.map((t:any)=>{let t1:any = {...t};t1.selected = false;return t1})
+  constructor(private apiService: ApiServiceService){
+
+  }
+  transactions:any[]=[]
+  ngOnInit() {
+    this.apiService.getTransactions(1).subscribe((transactionsData) => {
+    this.transactions=transactionsData.map((t:any)=>{let t1:any = {...t};t1.selected = false;return t1})
+    });
+
+  }
+  
   renderedTransactions = this.transactions
   searchTerm=""
   
