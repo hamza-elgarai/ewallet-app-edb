@@ -19,6 +19,8 @@ export class SubmitTransactionPageComponent implements OnInit {
 
   clientId!: number;
 
+  authenticationClientId: number = 1;
+
   // * data for the transaction
   montant: number = 0;
   whoPayFees: string = '';
@@ -40,7 +42,7 @@ export class SubmitTransactionPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.apiService.getClientInfo(1).subscribe(
+    this.apiService.getClientInfo(this.authenticationClientId).subscribe(
       (response) => {
         this.ClientData = response;
         console.log(this.ClientData.solde);
@@ -53,7 +55,7 @@ export class SubmitTransactionPageComponent implements OnInit {
       }
     );
 
-    this.apiService.getBeneficiaries(1).subscribe(
+    this.apiService.getBeneficiaries(this.authenticationClientId).subscribe(
       (response) => {
         console.log('im getting the beneficiaries', response);
         this.Beneficiaries = response;
@@ -97,18 +99,20 @@ export class SubmitTransactionPageComponent implements OnInit {
   // * create a new benificiary
   addNewBenificiary() {
     console.log('new benificiary', this.newBenificiary);
-    this.apiService.createBeneficiary(this.newBenificiary, 1).subscribe(
-      (data) => {
-        console.log('benficiary Created successfully', data);
-        this.Beneficiaries.push(data);
-        this.benefId = data.id;
-        this.toast('benficiary Created successfully', 'success');
-      },
-      (error) => {
-        console.log('error creating benficiary', error);
-        this.toast('error creating benficiary', 'error');
-      }
-    );
+    this.apiService
+      .createBeneficiary(this.newBenificiary, this.authenticationClientId)
+      .subscribe(
+        (data) => {
+          console.log('benficiary Created successfully', data);
+          this.Beneficiaries.push(data);
+          this.benefId = data.id;
+          this.toast('benficiary Created successfully', 'success');
+        },
+        (error) => {
+          console.log('error creating benficiary', error);
+          this.toast('error creating benficiary', 'error');
+        }
+      );
   }
 
   // * generate a transaction

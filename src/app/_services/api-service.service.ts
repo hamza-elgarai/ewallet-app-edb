@@ -22,6 +22,13 @@ export class ApiServiceService {
     );
   }
 
+  // updateBenificiary(toUpdate: any): Observable<any> {
+  //   return this.http.post(
+  //     `${this.baseUrl}/USER-SERVICE/api/beneficiary/update`,
+  //     toUpdate
+  //   );
+  // }
+
   getClientInfo(id: number): Observable<any> {
     return this.http.get(
       `${this.baseUrl}/USER-SERVICE/api/client/get-client-data/${id}`
@@ -38,6 +45,12 @@ export class ApiServiceService {
     return this.http.post(
       `${this.baseUrl}/TRANSFER-SERVICE/api/v1/transaction/agent/submitTransaction`,
       data
+    );
+  }
+
+  getBenificiariesByClientId(clientId: number): Observable<any> {
+    return this.http.get(
+      `${this.baseUrl}/USER-SERVICE/api/client/beneficiaires/${clientId}`
     );
   }
 
