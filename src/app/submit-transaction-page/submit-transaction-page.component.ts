@@ -25,6 +25,7 @@ export class SubmitTransactionPageComponent implements OnInit {
   montant: number = 0;
   whoPayFees: string = '';
   benefId: number = 0;
+  benefName: string = '';
   transactionType: string = 'GAB';
 
   generateOTP!: string;
@@ -87,8 +88,10 @@ export class SubmitTransactionPageComponent implements OnInit {
   selectBenificiary(benificiary: any) {
     console.log('selected benificiary', benificiary);
     this.benefId = benificiary.id;
+    this.benefName = benificiary.nom + ' ' + benificiary.prenom;
 
     console.log('who ' + this.whoPayFees);
+    this.toggleDropdown();
   }
 
   // * update whoPayFees when the user selects an option from the dropdown

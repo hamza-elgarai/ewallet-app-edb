@@ -125,7 +125,7 @@
             [disabled]="disableDropDownChooseBenificiary"
             (click)="toggleDropdown()"
           >
-            Choisir un bénéficiaire &nbsp; ▼
+            {{ benefName ? benefName : "Selectionner bénéficiaire" }} &nbsp; ▼
           </button>
           <div class="dropdown-content" [ngClass]="{ active: isDropdownOpen }">
             <!-- <a id="top" href="#">bénéficiaire 1</a>
