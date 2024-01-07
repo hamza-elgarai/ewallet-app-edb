@@ -30,10 +30,11 @@ export class SubmitTransactionPageComponent implements OnInit {
   generateOTP!: string;
   typedOTP: string = '';
 
-  newBenificiary = {
+  newBenificiary: any = {
     nom: '',
     prenom: '',
-    phoneNumber: '',
+    email: '',
+    phone: '',
   };
 
   constructor(
@@ -115,7 +116,7 @@ export class SubmitTransactionPageComponent implements OnInit {
       );
   }
 
-  // * generate a transaction
+  // * generate an OTP and send it to the client
   sendOTPToClient() {
     this.apiService.sendOTP(this.ClientData.id).subscribe(
       (data) => {

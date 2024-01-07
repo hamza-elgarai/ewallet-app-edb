@@ -187,7 +187,14 @@
               placeholder="Phone Number"
               class="bg-[#fff] border border-[#b9b8b8] text-[#494949] text-sm rounded-lg focus:border-[#f94449] focus:outline-none block ps-2 pe-10 pt-3 pb-3 transition-colors ease duration-300 focus-within:shadow-lg disabled:opacity-35"
               [disabled]="disableTextFields"
-              [(ngModel)]="newBenificiary.phoneNumber"
+              [(ngModel)]="newBenificiary.phone"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              class="bg-[#fff] border border-[#b9b8b8] text-[#494949] text-sm rounded-lg focus:border-[#f94449] focus:outline-none block ps-2 pe-10 pt-3 pb-3 transition-colors ease duration-300 focus-within:shadow-lg disabled:opacity-35"
+              [disabled]="disableTextFields"
+              [(ngModel)]="newBenificiary.email"
             />
 
             <button
