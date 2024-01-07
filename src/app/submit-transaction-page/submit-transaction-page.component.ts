@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiServiceService } from '../_services/api-service.service';
+// import { ToastModule } from 'primeng/toast';
+// import { MessageService } from 'primeng/api';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-submit-transaction-page',
@@ -14,11 +17,16 @@ export class SubmitTransactionPageComponent implements OnInit {
   ClientData: any;
   Beneficiaries: any;
 
+  clientId!: number;
+
   // * data for the transaction
   montant: number = 0;
   whoPayFees: string = '';
   benefId: number = 0;
   transactionType: string = 'GAB';
+
+  generateOTP!: string;
+  typedOTP: string = '';
 
   newBenificiary = {
     nom: '',
@@ -26,13 +34,17 @@ export class SubmitTransactionPageComponent implements OnInit {
     phoneNumber: '',
   };
 
-  constructor(private apiService: ApiServiceService) {}
+  constructor(
+    private apiService: ApiServiceService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.apiService.getClientInfo(1).subscribe(
       (response) => {
         this.ClientData = response;
         console.log(this.ClientData.solde);
+        this.clientId = this.ClientData.id;
 
         console.log('im getting the client data', this.ClientData);
       },
@@ -90,10 +102,68 @@ export class SubmitTransactionPageComponent implements OnInit {
         console.log('benficiary Created successfully', data);
         this.Beneficiaries.push(data);
         this.benefId = data.id;
+        this.toast('benficiary Created successfully', 'success');
       },
       (error) => {
         console.log('error creating benficiary', error);
+        this.toast('error creating benficiary', 'error');
       }
     );
+  }
+
+  // * generate a transaction
+  sendOTPToClient() {
+    this.apiService.sendOTP(this.ClientData.id).subscribe(
+      (data) => {
+        console.log('OTP sent successfully', data);
+        this.generateOTP = data;
+        this.toast('OTP sent successfully', 'success');
+      },
+      (error) => {
+        console.log('error sending OTP', error);
+        this.toast('error sending OTP', 'error');
+      }
+    );
+  }
+
+  //* submit the transaction
+  confirmTransaction() {
+    const data = {
+      donorId: this.ClientData.id,
+      beneficiaryId: this.benefId,
+      amount: this.montant,
+      whoPayFees: this.whoPayFees,
+      paymentType: this.transactionType,
+      otpValue: this.typedOTP,
+      fraisTransfert: 2,
+      notify: true,
+      isNotificationFees: true,
+    };
+    console.log('transaction data', data);
+
+    this.apiService.submitTransaction(data).subscribe(
+      (response) => {
+        console.log('transaction submitted successfully', response);
+        this.toast('transaction submitted successfully', 'success');
+      },
+      (error) => {
+        console.log('error submitting transaction', error);
+        this.toast('error submitting transaction', 'error');
+      }
+    );
+  }
+
+  toast(message: string, state: string) {
+    if (state === 'success') {
+      this.toastr.success(message, 'Success', {
+        timeOut: 2000,
+        progressBar: true,
+      });
+    } else if (state === 'error') {
+      this.toastr.error(message, 'Error', {
+        timeOut: 2000,
+        progressBar: true,
+      });
+    }
   }
 }

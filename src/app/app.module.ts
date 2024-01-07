@@ -10,11 +10,17 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { BenefPageComponent } from './benef-page/benef-page.component';
 import { SubmitTransactionPageComponent } from './submit-transaction-page/submit-transaction-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { ButtonModule } from 'primeng/button';
+// import { ToastModule } from 'primeng/toast';
+// import { MessageService } from 'primeng/api';
+import { ToastNoAnimationModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
     EdbHeaderComponent,
     HomePageComponent,
+
     BenefPageComponent,
     SubmitTransactionPageComponent,
   ],
@@ -24,8 +30,15 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    // BrowserAnimationsModule,
+    // ButtonModule,
+    // ToastModule,
+    ToastNoAnimationModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    // MessageService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

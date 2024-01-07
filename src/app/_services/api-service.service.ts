@@ -28,6 +28,19 @@ export class ApiServiceService {
     );
   }
 
+  sendOTP(clientId: string): Observable<any> {
+    return this.http.get(
+      `${this.baseUrl}/TRANSFER-SERVICE/api/otp/send-otp/${clientId}`
+    );
+  }
+
+  submitTransaction(data: any): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}/TRANSFER-SERVICE/api/v1/transaction/agent/submitTransaction`,
+      data
+    );
+  }
+
   // submitTransaction(montant: number, whoPayFees: string, benefId: number, transactionType: string): Observable<any> {
 
   // }

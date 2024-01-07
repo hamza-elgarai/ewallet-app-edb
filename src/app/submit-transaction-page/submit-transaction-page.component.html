@@ -189,6 +189,7 @@
               [disabled]="disableTextFields"
               [(ngModel)]="newBenificiary.phoneNumber"
             />
+
             <button
               class="bg-[#f94449] disabled:opacity-35 disabled:bg-opacity-35 p-3 rounded-lg text-white"
               [disabled]="disableTextFields"
@@ -219,15 +220,22 @@
         class="bg-[#fff] border border-[#b9b8b8] text-[#494949] text-sm rounded-s-lg focus:border-[#f94449] focus:outline-none block ps-3 pe-3 pt-3 pb-3 w-64"
         placeholder="Code de vérification"
         required
+        [(ngModel)]="typedOTP"
       />
 
-      <button class="bg-[#f94449] p-4 px-3 rounded-e-lg text-white">
+      <button
+        class="bg-[#f94449] p-4 px-3 rounded-e-lg text-white"
+        (click)="sendOTPToClient()"
+      >
         Envoyer
       </button>
     </div>
 
     <div class="mx-auto mt-6">
-      <button class="bg-[#f94449] p-4 px-7 rounded-full text-white">
+      <button
+        class="bg-[#f94449] p-4 px-7 rounded-full text-white"
+        (click)="confirmTransaction()"
+      >
         Confirmer
       </button>
     </div>
