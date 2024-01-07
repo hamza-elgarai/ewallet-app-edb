@@ -9,22 +9,23 @@ import { FormsModule } from '@angular/forms';
 import { HomePageComponent } from './home-page/home-page.component';
 import { BenefPageComponent } from './benef-page/benef-page.component';
 import { SubmitTransactionPageComponent } from './submit-transaction-page/submit-transaction-page.component';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
     EdbHeaderComponent,
     HomePageComponent,
     BenefPageComponent,
-    SubmitTransactionPageComponent
+    SubmitTransactionPageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

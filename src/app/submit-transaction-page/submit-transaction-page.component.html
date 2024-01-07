@@ -2,7 +2,8 @@
   <!-- Montant -->
   <div class="flex flex-col space-y-4">
     <p class="text-xl font-semibold ms-2">
-      Emission de transfert de la part de Hamza Elgarai:
+      Emission de transfert de la part de {{ ClientData.nom }}
+      {{ ClientData.prenom }}:
     </p>
     <div class="flex items-center justify-center">
       <div
@@ -16,13 +17,16 @@
             <input
               type="number"
               id="simple-search"
+              [(ngModel)]="montant"
               class="bg-[#fff] border border-[#b9b8b8] text-[#494949] text-sm rounded-full focus:border-[#f94449] focus:outline-none block ps-10 pe-10 pt-3 pb-3"
               placeholder="Montant"
               required
             />
           </div>
         </div>
-        <p class="text-lg font-medium">Solde disponible : 20 000 DH</p>
+        <p class="text-lg font-medium">
+          Solde disponible : {{ ClientData.solde }} DH
+        </p>
       </div>
     </div>
   </div>
@@ -39,6 +43,8 @@
             id="radio2"
             class="radio-button__input"
             type="radio"
+            value="donor"
+            (change)="changeWhoPayFees($event)"
           />
           <label for="radio2" class="radio-button__label">
             <span class="radio-button__custom"></span>
@@ -54,6 +60,8 @@
             id="radio1"
             class="radio-button__input"
             type="radio"
+            value="beneficiary"
+            (change)="changeWhoPayFees($event)"
           />
           <label for="radio1" class="radio-button__label">
             <span class="radio-button__custom"></span>
@@ -69,6 +77,8 @@
             id="radio3"
             class="radio-button__input"
             type="radio"
+            value="shared"
+            (change)="changeWhoPayFees($event)"
           />
           <label for="radio3" class="radio-button__label">
             <span class="radio-button__custom"></span>
@@ -118,9 +128,20 @@
             Choisir un bénéficiaire &nbsp; ▼
           </button>
           <div class="dropdown-content" [ngClass]="{ active: isDropdownOpen }">
-            <a id="top" href="#">bénéficiaire 1</a>
+            <!-- <a id="top" href="#">bénéficiaire 1</a>
             <a id="middle" href="#">bénéficiaire 2</a>
-            <a id="bottom" href="#">bénéficiaire 3</a>
+            <a id="bottom" href="#">bénéficiaire 3</a> -->
+            <a
+              *ngFor="
+                let benificiary of Beneficiaries;
+                let first = first;
+                let last = last
+              "
+              [id]="first ? 'top' : last ? 'bottom' : 'middle'"
+              (click)="selectBenificiary(benificiary)"
+            >
+              {{ benificiary.nom + " " + benificiary.prenom }}
+            </a>
           </div>
         </div>
 
@@ -152,22 +173,26 @@
               placeholder="Nom"
               class="bg-[#fff] border border-[#b9b8b8] text-[#494949] text-sm rounded-lg focus:border-[#f94449] focus:outline-none block ps-2 pe-10 pt-3 pb-3 focus-within:shadow-lg disabled:opacity-35"
               [disabled]="disableTextFields"
+              [(ngModel)]="newBenificiary.nom"
             />
             <input
               type="text"
               placeholder="Prenom"
               class="bg-[#fff] border border-[#b9b8b8] text-[#494949] text-sm rounded-lg focus:border-[#f94449] focus:outline-none block ps-2 pe-10 pt-3 pb-3 transition-colors ease duration-300 focus-within:shadow-lg disabled:opacity-35"
               [disabled]="disableTextFields"
+              [(ngModel)]="newBenificiary.prenom"
             />
             <input
               type="phone"
               placeholder="Phone Number"
               class="bg-[#fff] border border-[#b9b8b8] text-[#494949] text-sm rounded-lg focus:border-[#f94449] focus:outline-none block ps-2 pe-10 pt-3 pb-3 transition-colors ease duration-300 focus-within:shadow-lg disabled:opacity-35"
               [disabled]="disableTextFields"
+              [(ngModel)]="newBenificiary.phoneNumber"
             />
             <button
               class="bg-[#f94449] disabled:opacity-35 disabled:bg-opacity-35 p-3 rounded-lg text-white"
               [disabled]="disableTextFields"
+              (click)="addNewBenificiary()"
             >
               Add
             </button>
