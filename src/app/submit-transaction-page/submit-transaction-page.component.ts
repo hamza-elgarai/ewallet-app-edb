@@ -44,6 +44,8 @@ export class SubmitTransactionPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+
     this.apiService.getClientInfo(this.authenticationClientId).subscribe(
       (response) => {
         this.ClientData = response;

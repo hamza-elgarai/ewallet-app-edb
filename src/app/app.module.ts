@@ -13,12 +13,15 @@ import { SubmitTransactionPageComponent } from './submit-transaction-page/submit
 import { TransactionPageComponent } from './transactions-page/transaction-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ButtonModule } from 'primeng/button';
 // import { ToastModule } from 'primeng/toast';
 // import { MessageService } from 'primeng/api';
 import { ToastNoAnimationModule } from 'ngx-toastr';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { DatePipe } from '@angular/common';
+import { AuthGuard } from './guard/auth.guard';
 
 @NgModule({
   declarations: [
@@ -45,8 +48,9 @@ import { ToastNoAnimationModule } from 'ngx-toastr';
     ToastNoAnimationModule.forRoot(),
   ],
   providers: [
-    // MessageService
-  ],
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AuthGuard,
+    DatePipe  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
