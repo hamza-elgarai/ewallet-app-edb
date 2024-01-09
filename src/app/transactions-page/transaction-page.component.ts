@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import TransactionResponse from '../interface/transaction-response.interface';
 import { ApiServiceService } from '../_services/api-service.service';
+import { ClientService } from '../_services/client/client.service';
+import { TokenStorageService } from '../_services/auth/token-storage.service';
 
 @Component({
   selector: 'app-transaction-page',
@@ -9,23 +11,29 @@ import { ApiServiceService } from '../_services/api-service.service';
   styleUrls: ['./transaction-page.component.css'],
 })
 export class TransactionPageComponent {
-  constructor(private apiService: ApiServiceService) {}
+  constructor(private apiService: ApiServiceService,private clientService:ClientService,private tokenService:TokenStorageService) {}
   transactions: any[] = [];
   ngOnInit() {
-    this.apiService.getTransactions(1).subscribe(
-      (transactionsData) => {
-        this.transactions = transactionsData.map((t: any) => {
-          let t1: any = { ...t };
-          t1.selected = false;
-          return t1;
-        });
-        this.renderedTransactions = this.transactions;
-        console.log('transactions', this.transactions);
-      },
-      (error) => {
-        console.log('error getting transactions', error);
-      }
-    );
+    console.log(this.tokenService.getUserEmail());
+    this.clientService.getClientByEmail(this.tokenService.getUserEmail()).subscribe((response:any)=>{
+      
+      console.log(response.id);
+      this.apiService.getTransactions(response.id).subscribe(
+        (transactionsData) => {
+          console.log(transactionsData);
+          this.transactions = transactionsData.map((t: any) => {
+            let t1: any = { ...t };
+            t1.selected = false;
+            return t1;
+          });
+          this.renderedTransactions = this.transactions;
+          console.log('transactions', this.transactions);
+        },
+        (error) => {
+          console.log('error getting transactions', error);
+        }
+      );
+    })
   }
 
   renderedTransactions = this.transactions;
