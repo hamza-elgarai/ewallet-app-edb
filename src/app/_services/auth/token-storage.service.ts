@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-const TOKEN_KEY = 'access_token';
-const REFRESHTOKEN_KEY = 'refresh_token';
+const TOKEN_KEY = 'ewallet_access_token';
+const REFRESHTOKEN_KEY = 'ewallet_refresh_token';
 const USER_KEY = 'user_email';
 
 @Injectable({
@@ -9,6 +9,9 @@ const USER_KEY = 'user_email';
 
 
 export class TokenStorageService {
+  getUserEmail  (): string | null {
+    return  window.localStorage.getItem(USER_KEY); 
+    }
 
   constructor() { }
 

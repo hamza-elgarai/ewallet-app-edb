@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 // import benefData from '../beneficiaires';
 import { ApiServiceService } from '../_services/api-service.service';
 import { ToastrService } from 'ngx-toastr';
+import { ClientService } from '../_services/client/client.service';
+import { TokenStorageService } from '../_services/auth/token-storage.service';
 
 @Component({
   selector: 'app-benef-page',
@@ -16,9 +18,23 @@ export class BenefPageComponent implements OnInit {
   authenticationClientId: number = 1;
   constructor(
     private apiService: ApiServiceService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private clientService:ClientService,
+    private tokenService:TokenStorageService
   ) {}
   ngOnInit(): void {
+
+    this.clientService.getClientByEmail(this.tokenService.getUserEmail()).subscribe(
+      (response) => {
+        console.log('im getting client data', response);
+        this.authenticationClientId = response['id'];
+      },
+      (error) => {
+        console.log('error getting client data', error);
+      }
+    );
+
+
     this.apiService.getBeneficiaries(this.authenticationClientId).subscribe(
       (response) => {
         console.log('im getting the beneficiaries', response);

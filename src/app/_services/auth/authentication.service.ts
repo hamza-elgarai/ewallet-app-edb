@@ -55,7 +55,7 @@ export class AuthenticationService {
 
     isAuthenticated(){
       console.log('isAuthenticated is called')
-      let token = localStorage.getItem("access_token")
+      let token = localStorage.getItem("ewallet_access_token")
       if(token===null) return false;
       return true
     }

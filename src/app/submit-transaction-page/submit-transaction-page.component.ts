@@ -3,6 +3,8 @@ import { ApiServiceService } from '../_services/api-service.service';
 // import { ToastModule } from 'primeng/toast';
 // import { MessageService } from 'primeng/api';
 import { ToastrService } from 'ngx-toastr';
+import { ClientService } from '../_services/client/client.service';
+import { TokenStorageService } from '../_services/auth/token-storage.service';
 
 @Component({
   selector: 'app-submit-transaction-page',
@@ -40,34 +42,27 @@ export class SubmitTransactionPageComponent implements OnInit {
 
   constructor(
     private apiService: ApiServiceService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private clientService:ClientService,
+    private tokenService:TokenStorageService
   ) {}
 
   ngOnInit(): void {
-
-
-    this.apiService.getClientInfo(this.authenticationClientId).subscribe(
+    this.clientService.getClientByEmail(this.tokenService.getUserEmail()).subscribe(
       (response) => {
-        this.ClientData = response;
-        console.log(this.ClientData.solde);
-        this.clientId = this.ClientData.id;
+        this.authenticationClientId = response['id'];
 
-        console.log('im getting the client data', this.ClientData);
+        console.log('im getting client daaaaata', response);
+        this.getClientInfo()
+        this.getBeneficiaries()
       },
       (error) => {
         console.log('error getting client data', error);
       }
     );
 
-    this.apiService.getBeneficiaries(this.authenticationClientId).subscribe(
-      (response) => {
-        console.log('im getting the beneficiaries', response);
-        this.Beneficiaries = response;
-      },
-      (error) => {
-        console.log('error getting beneficiaries', error);
-      }
-    );
+
+
   }
 
   isDropdownOpen: boolean = false;
@@ -175,5 +170,33 @@ export class SubmitTransactionPageComponent implements OnInit {
         progressBar: true,
       });
     }
+  }
+
+  getClientInfo(){
+    this.apiService.getClientInfo(this.authenticationClientId).subscribe(
+      (response) => {
+        this.ClientData = response;
+        console.log(this.ClientData.prenom);
+        this.clientId = response['id'];
+
+        console.log('im getting the client data', this.ClientData);
+      },
+      (error) => {
+        console.log('error getting client data', error);
+      }
+    );
+  }
+
+  getBeneficiaries(){
+
+    this.apiService.getBeneficiaries(this.authenticationClientId).subscribe(
+      (response) => {
+        console.log('im getting the beneficiaries', response);
+        this.Beneficiaries = response;
+      },
+      (error) => {
+        console.log('error getting beneficiaries', error);
+      }
+    );
   }
 }
